@@ -38,34 +38,32 @@ public class PrimeiroServlet extends HttpServlet {
 		//doGet(request, response);
 
 				
-		String val1s = request.getParameter("val1");
-		String val2s = request.getParameter("val2");
-		String opcao = request.getParameter("opcao");
-		
-
-		
-		//if((request.getParameter("val1") != null) && (request.getParameter("val2") != null)){
-			int val1i = Integer.parseInt("val1");
-			int val2i = Integer.parseInt("val2");
-			int resultado = 0;
-            
+		if((request.getParameter("val1") != null) && (request.getParameter("val2") != null)){
+			int val1 = Integer.parseInt(request.getParameter("val1"));
+			int val2 = Integer.parseInt(request.getParameter("val2"));
+			String opcao = request.getParameter("opcao");
+			
+			Calcular c = new Calcular (val1, val2);
+			
 			if(opcao.equals("+")){
-				   resultado = val1i + val2i;
+				int resultado = c.somar();
+				request.setAttribute("res", resultado);
 				}else if (opcao.equals("-")){
-				   resultado = val1i - val2i;
+					int resultado = c.diminuir();
+					request.setAttribute("res", resultado);
 				}else if (opcao.equals("*")){
-				   resultado = val1i * val2i;
+					int resultado = c.multiplicar();
+					request.setAttribute("res", resultado);
 				}else if (opcao.equals("/")){
-				    resultado = val1i / val2i;
+					int resultado = c.dividir();
+					request.setAttribute("res", resultado);
 				}
-
-
+		}
 		
-		
+		request.getRequestDispatcher("/").forward(request, response);
 
 	    //response.getWriter().printf("<H1> Resultado = %d </H1>", result);
 
-	    
 	}
 
 }
